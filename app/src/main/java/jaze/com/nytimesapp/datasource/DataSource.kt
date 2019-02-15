@@ -42,9 +42,9 @@ class DataSource(listener: DataListener) {
         call.enqueue(object : Callback<Articles> {
             override fun onResponse(call: Call<Articles>, response: Response<Articles>) {
                 if (response.isSuccessful()) {
-                    updateOffset()
                     val body = response.body()
                     maxNumResults = body?.getNumResults() ?: 0
+                    updateOffset()
                     listener.onShowData(body?.getResults() as List<Result>)
                 } else {
                     listener.onShowError(response.message())
